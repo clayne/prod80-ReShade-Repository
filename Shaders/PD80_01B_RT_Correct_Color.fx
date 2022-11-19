@@ -41,8 +41,8 @@ namespace pd80_correctcolor
         #define RT_ENABLE_HIGH_PERF_MODE        0
     #endif
 
-    #if( RT_ENABLE_HIGH_PERF_MODE > 1 || RT_ENABLE_HIGH_PERF_MODE < 0 )
-        #error "RT_ENABLE_HIGH_PERF_MODE has a range of 0 to 1"
+    #if( RT_ENABLE_HIGH_PERF_MODE > 4 || RT_ENABLE_HIGH_PERF_MODE < 0 )
+        #error "RT_ENABLE_HIGH_PERF_MODE has a range of 0 to 4"
     #endif
 
     #if( RT_PRECISION_LEVEL_0_TO_4 > 4 || RT_PRECISION_LEVEL_0_TO_4 < 0 )
@@ -278,7 +278,7 @@ namespace pd80_correctcolor
 
         // Sample texture
         float2 stexSize    = float2( BUFFER_WIDTH/RT_RES, BUFFER_HEIGHT/RT_RES );
-        uint OFFSET        = 1 + RT_ENABLE_HIGH_PERF_MODE * 3;
+        uint OFFSET        = 1 << ( RT_ENABLE_HIGH_PERF_MODE > 0 ? RT_ENABLE_HIGH_PERF_MODE + 1 : 0 );
         float2 start       = floor(( texcoord.xy - hst ) * stexSize.xy );    // sample block start position
         float2 stop        = floor(( texcoord.xy + hst ) * stexSize.xy );    // ... end position
 
